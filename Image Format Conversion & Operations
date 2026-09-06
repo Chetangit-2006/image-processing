@@ -37,3 +37,16 @@ plt.imshow(RGB_img)
 plt.axis("off")
 plt.waitforbuttonpress()
 plt.close()
+
+
+
+//Read Image in Grayscale
+import cv2
+
+path = "geeksforgeeks.png"
+
+img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+
+cv2.imshow("Grayscale Image", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
