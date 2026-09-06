@@ -10,6 +10,7 @@ cv2.destroyAllWindows()
 
 
 
+
 //Read Image using Matplotlib
 import cv2
 import matplotlib.pyplot as plt
@@ -20,6 +21,8 @@ plt.imshow(img)
 plt.axis("off")
 plt.waitforbuttonpress()
 plt.close()
+
+
 
 
 
@@ -40,6 +43,8 @@ plt.close()
 
 
 
+
+
 //Read Image in Grayscale
 import cv2
 
@@ -48,5 +53,53 @@ path = "geeksforgeeks.png"
 img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
 
 cv2.imshow("Grayscale Image", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+
+//Image Addition / Weighted Sum
+import cv2
+
+image1 = cv2.imread("input1.jpg")
+image2 = cv2.imread("input2.jpg")
+
+weightedSum = cv2.addWeighted(image1, 0.5, image2, 0.4, 0)
+
+cv2.imshow("Weighted Image", weightedSum)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+//Image Subtraction
+import cv2
+
+image1 = cv2.imread("img1.jpg")
+image2 = cv2.imread("img2.jpg")
+
+sub = cv2.subtract(image1, image2)
+
+cv2.imshow("Subtracted Image", sub)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+//Bitwise AND
+import cv2
+
+img1 = cv2.imread("input1.png")
+img2 = cv2.imread("input2.png")
+
+dest_and = cv2.bitwise_and(img1, img2)
+
+cv2.imshow("Bitwise AND", dest_and)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
