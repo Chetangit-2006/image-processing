@@ -103,3 +103,42 @@ dest_and = cv2.bitwise_and(img1, img2)
 cv2.imshow("Bitwise AND", dest_and)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
+
+
+//Bitwise XOR
+import cv2
+
+img1 = cv2.imread("input1.png")
+img2 = cv2.imread("input2.png")
+
+dest_xor = cv2.bitwise_xor(img1, img2)
+
+cv2.imshow("Bitwise XOR", dest_xor)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
+//Bitwise NOT
+import cv2
+
+img1 = cv2.imread("input1.png")
+img2 = cv2.imread("input2.png")
+
+dest_not1 = cv2.bitwise_not(img1)
+dest_not2 = cv2.bitwise_not(img2)
+
+cv2.imshow("Bitwise NOT - Image 1", dest_not1)
+cv2.imshow("Bitwise NOT - Image 2", dest_not2)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+
+
+
