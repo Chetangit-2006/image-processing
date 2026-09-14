@@ -1,0 +1,46 @@
+# ============================================================
+# 1. IMAGE INPAINTING USING TELEA METHOD
+# ============================================================
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the damaged image
+image = cv2.imread('damaged_image.png')
+
+# Load the mask
+# White areas indicate the damaged region
+mask = cv2.imread('mask.png', 0)
+
+# Apply Telea inpainting method
+inpainted_image = cv2.inpaint(
+    image,
+    mask,
+    3,
+    cv2.INPAINT_TELEA
+)
+
+# Convert BGR to RGB
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+inpainted_rgb = cv2.cvtColor(
+    inpainted_image,
+    cv2.COLOR_BGR2RGB
+)
+
+# Display original image
+plt.subplot(1, 2, 1)
+plt.title("Damaged Image")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# Display restored image
+plt.subplot(1, 2, 2)
+plt.title("Telea Inpainting")
+plt.imshow(inpainted_rgb)
+plt.axis("off")
+
+plt.show()
+
+# Save the restored image
+cv2.imwrite('telea_inpainted.jpg', inpainted_image)
