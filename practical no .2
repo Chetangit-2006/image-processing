@@ -63,3 +63,76 @@ plt.close('all')
 # Wait for a button press and close all plots
 plt.waitforbuttonpress()
 plt.close('all')
+
+
+
+
+
+
+
+# Python program to explain cv2.imread() method
+
+import cv2
+
+# Path of the image
+path = r'geeksforgeeks.png'
+
+# Read the image in grayscale mode
+img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+
+# Display the grayscale image
+cv2.imshow('Grayscale Image', img)
+
+# Wait until a key is pressed
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
+
+
+
+
+
+
+import cv2
+import numpy as np
+
+# Read the input images
+image1 = cv2.imread('input1.jpg')
+image2 = cv2.imread('input2.jpg')
+
+# Add the two images with different weights
+weightedSum = cv2.addWeighted(image1, 0.5, image2, 0.4, 0)
+
+# Display the output image
+cv2.imshow('Weighted Image', weightedSum)
+
+# Wait for a key press
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
+
+
+
+
+
+
+import cv2
+import numpy as np
+
+# Read the input images
+image1 = cv2.imread('img1.jpg')
+image2 = cv2.imread('img2.jpg')
+
+# Subtract image2 from image1
+sub = cv2.subtract(image1, image2)
+
+# Display the subtracted image
+cv2.imshow('Subtracted Image', sub)
+
+# Wait for a key press
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
