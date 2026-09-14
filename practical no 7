@@ -1,0 +1,137 @@
+# ============================================================
+# IMAGE COMPRESSION - LOSSY AND LOSSLESS
+# ============================================================
+
+import cv2
+import os
+
+
+# ---------- Function to calculate compression ratio ----------
+def compression_ratio(original_file, compressed_file):
+    """
+    Compression Ratio = Original Size / Compressed Size
+    """
+
+    original_size = os.path.getsize(original_file)
+    compressed_size = os.path.getsize(compressed_file)
+
+    ratio = (
+        original_size / compressed_size
+        if compressed_size != 0
+        else 0
+    )
+
+    # Sizes in KB
+    return (
+        ratio,
+        original_size / 1024,
+        compressed_size / 1024
+    )
+
+
+# ---------- Load the image ----------
+image_path = 'input_image.jpg'
+
+image = cv2.imread(image_path)
+
+if image is None:
+    raise FileNotFoundError(
+        "Image not found. Check the file path."
+    )
+
+
+# ============================================================
+# LOSSY COMPRESSION (JPEG)
+# ============================================================
+
+# JPEG quality: 0-100
+# Lower quality = higher compression
+jpeg_quality = 30
+
+lossy_output = 'compressed_lossy.jpg'
+
+cv2.imwrite(
+    lossy_output,
+    image,
+    [cv2.IMWRITE_JPEG_QUALITY, jpeg_quality]
+)
+
+
+# ============================================================
+# LOSSLESS COMPRESSION (PNG)
+# ============================================================
+
+# PNG compression: 0-9
+# 0 = no compression
+# 9 = maximum lossless compression
+png_compression = 9
+
+lossless_output = 'compressed_lossless.png'
+
+cv2.imwrite(
+    lossless_output,
+    image,
+    [cv2.IMWRITE_PNG_COMPRESSION, png_compression]
+)
+
+
+# ============================================================
+# CALCULATE COMPRESSION RATIOS
+# ============================================================
+
+lossy_ratio, original_kb, lossy_kb = compression_ratio(
+    image_path,
+    lossy_output
+)
+
+lossless_ratio, _, lossless_kb = compression_ratio(
+    image_path,
+    lossless_output
+)
+
+
+# ---------- Print Results ----------
+print(f"Original Size: {original_kb:.2f} KB")
+
+print(
+    f"Lossy JPEG Size: {lossy_kb:.2f} KB "
+    f"(Quality={jpeg_quality})"
+)
+
+print(
+    f"Lossless PNG Size: {lossless_kb:.2f} KB "
+    f"(Compression={png_compression})"
+)
+
+print(
+    f"Lossy Compression Ratio: "
+    f"{lossy_ratio:.2f}:1"
+)
+
+print(
+    f"Lossless Compression Ratio: "
+    f"{lossless_ratio:.2f}:1"
+)
+
+
+# ============================================================
+# DISPLAY IMAGES
+# ============================================================
+
+cv2.imshow("Original", image)
+
+cv2.imshow(
+    "Lossy JPEG",
+    cv2.imread(lossy_output)
+)
+
+cv2.imshow(
+    "Lossless PNG",
+    cv2.imread(lossless_output)
+)
+
+# Wait for a key press
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
