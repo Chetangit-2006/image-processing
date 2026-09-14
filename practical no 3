@@ -1,1 +1,109 @@
+#1.Image Translation  
+import numpy as np 
+import cv2 as cv
+img = cv.imread(girl.jpg', 0)
+rows, cols = img.shape  
+M = np.float32([[1, 0, 100], [0, 1, 50]])
+dst = cv.warpAffine(img, M, (cols, rows)) 
+cv.imshow('img', dst) 
+cv.waitKey(0)  
+cv.destroyAllWindows()  
+
+
+
+
+# 2.Image reflection  
+import numpy as np 
+import cv2 as cv 
+img = cv.imread(‘girl.jpg', 0) 
+rows, cols = img.shape
+M = np.float32([[1, 0, 0],  [0, -1, rows],  [0, 0, 1]]) 
+reflected_img = cv.warpPerspective(img, M,  (int(cols), int(rows))) 
+cv.imshow('img', reflected_img) 
+cv.imwrite('reflection_out.jpg', reflected_img)
+cv.destroyAllWindows()  
+
+
+
+
+#3. Image Rotation  
+import numpy as np 
+import cv2 as cv 
+img = cv.imread('girlImage.jpg', 0) 
+rows, cols = img.shape  
+M = np.float32([[1, 0, 0], [0, -1, rows], [0, 0, 1]]) 
+img_rotation = cv.warpAffine(img,  cv.getRotationMatrix2D((cols/2, rows/2), 30, 0.6),  (cols, rows))
+cv.imshow('img', img_rotation) 
+cv.imwrite('rotation_out.jpg', img_rotation)  
+cv.waitKey(0) 
+cv.destroyAllWindows()  
+
+
+
+
+
+#4. Image Scaling  
+import numpy as np
+import cv2 as cv
+
+# Read the image in grayscale
+img = cv.imread('girlImage.jpg', 0)
+
+# Get image dimensions
+rows, cols = img.shape
+
+# Shrink the image
+img_shrinked = cv.resize(
+    img,
+    (250, 200),
+    interpolation=cv.INTER_AREA
+)
+
+# Display the shrinked image
+cv.imshow('Shrinked Image', img_shrinked)
+
+# Enlarge the image
+img_enlarged = cv.resize(
+    img_shrinked,
+    None,
+    fx=1.5,
+    fy=1.5,
+    interpolation=cv.INTER_CUBIC
+)
+
+# Display the enlarged image
+cv.imshow('Enlarged Image', img_enlarged)
+
+# Wait for a key press
+cv.waitKey(0)
+
+# Close all windows
+cv.destroyAllWindows()
+
+
+
+
+
+#5. Image Cropping
+import numpy as np
+import cv2 as cv
+
+# Read the image in grayscale
+img = cv.imread('girlImage.jpg', 0)
+
+# Crop the image
+cropped_img = img[100:300, 100:300]
+
+# Save the cropped image
+cv.imwrite('cropped_out.jpg', cropped_img)
+
+# Wait for a key press
+cv.waitKey(0)
+
+# Close all windows
+cv.destroyAllWindows()
+
+
+
+
 
