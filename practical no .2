@@ -1,1 +1,16 @@
 
+# Python code to read an image
+
+import cv2
+
+# Read the image in color
+img = cv2.imread("tomato.png", cv2.IMREAD_COLOR)
+
+# Display the image
+cv2.imshow("Image", img)
+
+# Wait until any key is pressed
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
