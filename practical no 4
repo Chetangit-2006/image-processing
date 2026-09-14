@@ -1,1 +1,388 @@
 
+# ============================================================
+# 1. IMAGE NEGATIVE
+# ============================================================
+
+import cv2
+import numpy as np
+
+# Read the image in grayscale
+img = cv2.imread('ronaldo.jpg', 0)
+
+# Create the negative image
+negative = 255 - img
+
+# Combine original and negative images side-by-side
+combined = np.hstack((img, negative))
+
+# Display the images
+cv2.imshow('Original (Left) vs Negative (Right)', combined)
+
+# Wait for a key press
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 2. BRIGHTNESS AND CONTRAST ADJUSTMENT USING addWeighted()
+# ============================================================
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read the image
+image = cv2.imread('ronaldo.jpg')
+
+# Convert BGR to RGB for Matplotlib
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Display the original image
+plt.subplot(1, 2, 1)
+plt.title("Original")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# Adjust brightness and contrast
+brightness = 10
+contrast = 2.3
+
+image2 = cv2.addWeighted(
+    image,
+    contrast,
+    np.zeros(image.shape, image.dtype),
+    0,
+    brightness
+)
+
+# Save the modified image
+cv2.imwrite('modified_image.jpg', image2)
+
+# Convert output to RGB
+image2_rgb = cv2.cvtColor(image2, cv2.COLOR_BGR2RGB)
+
+# Display the modified image
+plt.subplot(1, 2, 2)
+plt.title("Brightness & Contrast")
+plt.imshow(image2_rgb)
+plt.axis("off")
+
+plt.show()
+
+
+# ============================================================
+# 3. BRIGHTNESS AND CONTRAST USING convertScaleAbs()
+# ============================================================
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the image
+image = cv2.imread('ronaldo.jpg')
+
+# Convert BGR to RGB for displaying
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Plot the original image
+plt.subplot(1, 2, 1)
+plt.title("Original")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# g(i,j) = alpha * f(i,j) + beta
+
+# Control contrast
+alpha = 1.5
+
+# Control brightness
+beta = 50
+
+# Adjust brightness and contrast
+image2 = cv2.convertScaleAbs(
+    image,
+    alpha=alpha,
+    beta=beta
+)
+
+# Save the image
+cv2.imwrite('Brightness_Contrast.jpg', image2)
+
+# Convert output to RGB
+image2_rgb = cv2.cvtColor(image2, cv2.COLOR_BGR2RGB)
+
+# Plot the modified image
+plt.subplot(1, 2, 2)
+plt.title("Brightness & Contrast")
+plt.imshow(image2_rgb)
+plt.axis("off")
+
+plt.show()
+
+
+# ============================================================
+# 4. IMAGE SHARPENING USING KERNEL
+# ============================================================
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the image
+image = cv2.imread('ronaldo.jpg')
+
+# Convert BGR to RGB
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Display the original image
+plt.subplot(1, 2, 1)
+plt.title("Original")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# Create the sharpening kernel
+kernel = np.array([
+    [0, -1, 0],
+    [-1, 5, -1],
+    [0, -1, 0]
+])
+
+# Sharpen the image
+sharpened_image = cv2.filter2D(image, -1, kernel)
+
+# Save the image
+cv2.imwrite('sharpened_image.jpg', sharpened_image)
+
+# Convert output to RGB
+sharpened_rgb = cv2.cvtColor(
+    sharpened_image,
+    cv2.COLOR_BGR2RGB
+)
+
+# Display the sharpened image
+plt.subplot(1, 2, 2)
+plt.title("Sharpening")
+plt.imshow(sharpened_rgb)
+plt.axis("off")
+
+plt.show()
+
+
+# ============================================================
+# 5. LAPLACIAN SHARPENING
+# ============================================================
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the image
+image = cv2.imread('ronaldo.png')
+
+# Convert BGR to RGB
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Display the original image
+plt.subplot(1, 2, 1)
+plt.title("Original")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# Apply Laplacian operator
+laplacian = cv2.Laplacian(
+    image,
+    cv2.CV_64F
+)
+
+# Convert the result to uint8
+sharpened_image2 = cv2.convertScaleAbs(laplacian)
+
+# Save the image
+cv2.imwrite(
+    'Laplacian_sharpened_image.jpg',
+    sharpened_image2
+)
+
+# Convert output to RGB
+sharpened_rgb = cv2.cvtColor(
+    sharpened_image2,
+    cv2.COLOR_BGR2RGB
+)
+
+# Display the sharpened image
+plt.subplot(1, 2, 2)
+plt.title("Laplacian Sharpening")
+plt.imshow(sharpened_rgb)
+plt.axis("off")
+
+plt.show()
+
+
+# ============================================================
+# 6. NOISE REMOVAL USING MEDIAN FILTER
+# ============================================================
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Load the image
+image = cv2.imread('ronaldo.png')
+
+# Convert BGR to RGB
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Display the original image
+plt.subplot(1, 2, 1)
+plt.title("Original")
+plt.imshow(image_rgb)
+plt.axis("off")
+
+# Remove noise using median filter
+filtered_image = cv2.medianBlur(image, 11)
+
+# Save the filtered image
+cv2.imwrite('Median_Blur.jpg', filtered_image)
+
+# Convert output to RGB
+filtered_rgb = cv2.cvtColor(
+    filtered_image,
+    cv2.COLOR_BGR2RGB
+)
+
+# Display the blurred image
+plt.subplot(1, 2, 2)
+plt.title("Median Blur")
+plt.imshow(filtered_rgb)
+plt.axis("off")
+
+plt.show()
+
+
+# ============================================================
+# 7. HISTOGRAM EQUALIZATION
+# ============================================================
+
+import cv2
+import numpy as np
+
+# Read the image in grayscale
+img = cv2.imread('ronaldo.png', 0)
+
+# Apply histogram equalization
+equ = cv2.equalizeHist(img)
+
+# Stack original and equalized images side-by-side
+res = np.hstack((img, equ))
+
+# Display the images
+cv2.imshow(
+    'Original Image vs Equalized Image',
+    res
+)
+
+# Wait for a key press
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 8. HISTOGRAM EQUALIZATION WITH HISTOGRAM PLOTS
+# ============================================================
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read the image in grayscale
+img = cv2.imread('ronaldo.png', 0)
+
+# Apply histogram equalization
+equ = cv2.equalizeHist(img)
+
+# Stack original and equalized images
+res = np.hstack((img, equ))
+
+# Display original vs equalized image
+cv2.imshow('Original vs Equalized', res)
+
+# Create histogram plots
+plt.figure(figsize=(10, 5))
+
+# Original image histogram
+plt.subplot(1, 2, 1)
+plt.hist(img.ravel(), 256, [0, 256])
+plt.title('Original Histogram')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+
+# Equalized image histogram
+plt.subplot(1, 2, 2)
+plt.hist(equ.ravel(), 256, [0, 256])
+plt.title('Equalized Histogram')
+plt.xlabel('Pixel Intensity')
+plt.ylabel('Frequency')
+
+plt.tight_layout()
+plt.show()
+
+# Wait for a key press
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 9. SIMPLE THRESHOLDING
+# ============================================================
+
+import cv2
+import numpy as np
+
+# Read the input image
+image1 = cv2.imread('ronaldo.png')
+
+# Convert the image to grayscale
+img = cv2.cvtColor(
+    image1,
+    cv2.COLOR_BGR2GRAY
+)
+
+# Apply different thresholding techniques
+
+# Binary Threshold
+ret, thresh1 = cv2.threshold(
+    img, 120, 255, cv2.THRESH_BINARY
+)
+
+# Binary Inverted Threshold
+ret, thresh2 = cv2.threshold(
+    img, 120, 255, cv2.THRESH_BINARY_INV
+)
+
+# Truncated Threshold
+ret, thresh3 = cv2.threshold(
+    img, 120, 255, cv2.THRESH_TRUNC
+)
+
+# Set to Zero
+ret, thresh4 = cv2.threshold(
+    img, 120, 255, cv2.THRESH_TOZERO
+)
+
+# Set to Zero Inverted
+ret, thresh5 = cv2.threshold(
+    img, 120, 255, cv2.THRESH_TOZERO_INV
+)
+
+# Display the output images
+cv2.imshow('Binary Threshold', thresh1)
+cv2.imshow('Binary Threshold Inverted', thresh2)
+cv2.imshow('Truncated Threshold', thresh3)
+cv2.imshow('Set to 0', thresh4)
+cv2.imshow('Set to 0 Inverted', thresh5)
+
+# Wait for a key press
+cv2.waitKey(0)
+
+# Close all windows
+cv2.destroyAllWindows()
