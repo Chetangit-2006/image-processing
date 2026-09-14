@@ -1,0 +1,90 @@
+# ============================================================
+# TEMPLATE MATCHING - OBJECT DETECTION
+# ============================================================
+
+import cv2
+import numpy as np
+
+
+# ---------- Function to detect the object ----------
+def detect_object(template_path, input_image_path):
+
+    # Read the template image in grayscale
+    template = cv2.imread(template_path, 0)
+
+    # Read the input image
+    img = cv2.imread(input_image_path)
+
+    # Check whether images are loaded
+    if template is None:
+        raise FileNotFoundError(
+            "Template image not found. Check the path."
+        )
+
+    if img is None:
+        raise FileNotFoundError(
+            "Input image not found. Check the path."
+        )
+
+    # Convert input image to grayscale
+    gray_img = cv2.cvtColor(
+        img,
+        cv2.COLOR_BGR2GRAY
+    )
+
+    # Get width and height of the template
+    w, h = template.shape[::-1]
+
+    # Perform template matching
+    res = cv2.matchTemplate(
+        gray_img,
+        template,
+        cv2.TM_CCOEFF_NORMED
+    )
+
+    # Set the matching threshold
+    threshold = 0.8
+
+    # Find locations where the match is above threshold
+    loc = np.where(res >= threshold)
+
+    # Draw rectangles around matched areas
+    for pt in zip(*loc[::-1]):
+        cv2.rectangle(
+            img,
+            pt,
+            (pt[0] + w, pt[1] + h),
+            (0, 255, 255),
+            2
+        )
+
+    # Display the detected object
+    cv2.imshow(
+        'Detected Objects',
+        img
+    )
+
+    # Wait for a key press
+    cv2.waitKey(0)
+
+    # Close all windows
+    cv2.destroyAllWindows()
+
+
+# ============================================================
+# PROVIDE IMAGE PATHS
+# ============================================================
+
+template_path = r"C:\Users\LAB-112\Downloads\i1.jpg"
+
+input_image_path = r"C:\Users\LAB-112\Downloads\Animals.jpg"
+
+
+# ============================================================
+# CALL THE FUNCTION
+# ============================================================
+
+detect_object(
+    template_path,
+    input_image_path
+)
