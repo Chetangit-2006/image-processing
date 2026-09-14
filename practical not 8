@@ -1,0 +1,114 @@
+# ============================================================
+# MORPHOLOGICAL OPERATIONS
+# EROSION, DILATION, OPENING AND CLOSING
+# ============================================================
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the image in grayscale
+image = cv2.imread('binary_image.png', 0)
+
+# Check whether image is loaded
+if image is None:
+    raise FileNotFoundError(
+        "Image not found. Check the file path."
+    )
+
+# Convert the image into binary image
+_, binary = cv2.threshold(
+    image,
+    127,
+    255,
+    cv2.THRESH_BINARY
+)
+
+# Create a structuring element (kernel)
+kernel = np.ones((5, 5), np.uint8)
+
+
+# ============================================================
+# 1. EROSION
+# ============================================================
+
+erosion = cv2.erode(
+    binary,
+    kernel,
+    iterations=1
+)
+
+
+# ============================================================
+# 2. DILATION
+# ============================================================
+
+dilation = cv2.dilate(
+    binary,
+    kernel,
+    iterations=1
+)
+
+
+# ============================================================
+# 3. OPENING
+# Opening = Erosion followed by Dilation
+# ============================================================
+
+opening = cv2.morphologyEx(
+    binary,
+    cv2.MORPH_OPEN,
+    kernel
+)
+
+
+# ============================================================
+# 4. CLOSING
+# Closing = Dilation followed by Erosion
+# ============================================================
+
+closing = cv2.morphologyEx(
+    binary,
+    cv2.MORPH_CLOSE,
+    kernel
+)
+
+
+# ============================================================
+# DISPLAY RESULTS
+# ============================================================
+
+plt.figure(figsize=(10, 8))
+
+# Original Binary Image
+plt.subplot(2, 3, 1)
+plt.title("Binary Image")
+plt.imshow(binary, cmap='gray')
+plt.axis("off")
+
+# Erosion
+plt.subplot(2, 3, 2)
+plt.title("Erosion")
+plt.imshow(erosion, cmap='gray')
+plt.axis("off")
+
+# Dilation
+plt.subplot(2, 3, 3)
+plt.title("Dilation")
+plt.imshow(dilation, cmap='gray')
+plt.axis("off")
+
+# Opening
+plt.subplot(2, 3, 4)
+plt.title("Opening")
+plt.imshow(opening, cmap='gray')
+plt.axis("off")
+
+# Closing
+plt.subplot(2, 3, 5)
+plt.title("Closing")
+plt.imshow(closing, cmap='gray')
+plt.axis("off")
+
+plt.tight_layout()
+plt.show()
