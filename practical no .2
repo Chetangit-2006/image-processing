@@ -35,6 +35,31 @@ plt.imshow(img_rgb)
 plt.axis("off")
 plt.show()
 
+
+
+
+
+
+# Import cv2, numpy and matplotlib libraries
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read the image
+img = cv2.imread("geeks.png")
+
+# Convert BGR color to RGB color format
+RGB_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+# Display image using plt.imshow()
+plt.imshow(RGB_img)
+
+# Hold the window
+plt.waitforbuttonpress()
+
+# Close all plots
+plt.close('all')
+
 # Wait for a button press and close all plots
 plt.waitforbuttonpress()
 plt.close('all')
