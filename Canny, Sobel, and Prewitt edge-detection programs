@@ -1,0 +1,234 @@
+# ============================================================
+# 1. CANNY EDGE DETECTION - BASIC
+# ============================================================
+
+import cv2
+import matplotlib.pyplot as plt
+from google.colab import files
+import numpy as np
+
+# Upload an image
+uploaded = files.upload()
+
+# Read the uploaded image
+image_path = next(iter(uploaded))
+image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
+
+# Apply Gaussian Blur
+blurred_image = cv2.GaussianBlur(image, (5, 5), 1.4)
+
+# Apply Canny edge detector
+edges = cv2.Canny(blurred_image, 50, 150)
+
+# Display results
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.title('Original Image')
+plt.imshow(image, cmap='gray')
+plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.title('Edge Detected Image')
+plt.imshow(edges, cmap='gray')
+plt.axis('off')
+
+plt.show()
+
+
+# ============================================================
+# 2. CANNY EDGE DETECTION USING CANNY() FUNCTION
+# ============================================================
+
+import cv2
+
+img = cv2.imread("test.jpeg")
+
+t_lower = 50
+t_upper = 150
+
+edge = cv2.Canny(img, t_lower, t_upper)
+
+cv2.imshow('original', img)
+cv2.imshow('edge', edge)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 3. CANNY EDGE DETECTION WITH APERTURE SIZE
+# ============================================================
+
+import cv2
+
+img = cv2.imread("test.jpeg")
+
+t_lower = 100
+t_upper = 200
+aperture_size = 5
+
+edge = cv2.Canny(
+    img,
+    t_lower,
+    t_upper,
+    apertureSize=aperture_size
+)
+
+cv2.imshow('original', img)
+cv2.imshow('edge', edge)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 4. CANNY EDGE DETECTION WITH L2 GRADIENT
+# ============================================================
+
+import cv2
+
+img = cv2.imread("test.jpeg")
+
+t_lower = 100
+t_upper = 200
+aperture_size = 5
+L2Gradient = True
+
+edge = cv2.Canny(
+    img,
+    t_lower,
+    t_upper,
+    L2gradient=L2Gradient
+)
+
+cv2.imshow('original', img)
+cv2.imshow('edge', edge)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 5. CANNY WITH APERTURE SIZE AND L2 GRADIENT
+# ============================================================
+
+import cv2
+
+img = cv2.imread("test.jpeg")
+
+t_lower = 100
+t_upper = 200
+aperture_size = 5
+L2Gradient = True
+
+edge = cv2.Canny(
+    img,
+    t_lower,
+    t_upper,
+    apertureSize=aperture_size,
+    L2gradient=L2Gradient
+)
+
+cv2.imshow('original', img)
+cv2.imshow('edge', edge)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+
+# ============================================================
+# 6. SOBEL EDGE DETECTION
+# ============================================================
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Load grayscale image
+img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+if img is None:
+    raise ValueError("Image not found. Please check the path and filename.")
+
+# Sobel in X and Y directions
+sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=3)
+sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)
+
+# Compute magnitude
+sobel_edges = cv2.magnitude(sobelx, sobely)
+sobel_edges = np.uint8(sobel_edges)
+
+# Display results
+plt.figure(figsize=(10, 4))
+
+plt.subplot(1, 2, 1)
+plt.imshow(img, cmap='gray')
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.imshow(sobel_edges, cmap='gray')
+plt.title('Sobel Edges')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
+
+# Save result
+cv2.imwrite('sobel_edges.jpg', sobel_edges)
+
+
+# ============================================================
+# 7. PREWITT EDGE DETECTION
+# ============================================================
+
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+# Load grayscale image
+img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+if img is None:
+    raise ValueError("Image not found. Please check the path and filename.")
+
+# Prewitt kernels
+kernelx = np.array([
+    [-1, 0, 1],
+    [-1, 0, 1],
+    [-1, 0, 1]
+], dtype=np.float32)
+
+kernely = np.array([
+    [-1, -1, -1],
+    [0, 0, 0],
+    [1, 1, 1]
+], dtype=np.float32)
+
+# Apply Prewitt filters
+prewittx = cv2.filter2D(img, cv2.CV_64F, kernelx)
+prewitty = cv2.filter2D(img, cv2.CV_64F, kernely)
+
+# Compute magnitude
+prewitt_edges = cv2.magnitude(prewittx, prewitty)
+prewitt_edges = np.uint8(prewitt_edges)
+
+# Display results
+plt.figure(figsize=(10, 4))
+
+plt.subplot(1, 2, 1)
+plt.imshow(img, cmap='gray')
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(1, 2, 2)
+plt.imshow(prewitt_edges, cmap='gray')
+plt.title('Prewitt Edges')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
+
+# Save result
+cv2.imwrite('prewitt_edges.jpg', prewitt_edges)
