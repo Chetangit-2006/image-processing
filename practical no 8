@@ -1,7 +1,5 @@
-# ============================================================
-# MORPHOLOGICAL OPERATIONS
+#  MORPHOLOGICAL OPERATIONS
 # EROSION, DILATION, OPENING AND CLOSING
-# ============================================================
 
 import cv2
 import numpy as np
@@ -28,21 +26,14 @@ _, binary = cv2.threshold(
 kernel = np.ones((5, 5), np.uint8)
 
 
-# ============================================================
 # 1. EROSION
-# ============================================================
-
 erosion = cv2.erode(
     binary,
     kernel,
     iterations=1
 )
 
-
-# ============================================================
 # 2. DILATION
-# ============================================================
-
 dilation = cv2.dilate(
     binary,
     kernel,
@@ -50,11 +41,8 @@ dilation = cv2.dilate(
 )
 
 
-# ============================================================
 # 3. OPENING
 # Opening = Erosion followed by Dilation
-# ============================================================
-
 opening = cv2.morphologyEx(
     binary,
     cv2.MORPH_OPEN,
@@ -62,10 +50,8 @@ opening = cv2.morphologyEx(
 )
 
 
-# ============================================================
 # 4. CLOSING
 # Closing = Dilation followed by Erosion
-# ============================================================
 
 closing = cv2.morphologyEx(
     binary,
@@ -74,12 +60,8 @@ closing = cv2.morphologyEx(
 )
 
 
-# ============================================================
 # DISPLAY RESULTS
-# ============================================================
-
 plt.figure(figsize=(10, 8))
-
 # Original Binary Image
 plt.subplot(2, 3, 1)
 plt.title("Binary Image")
