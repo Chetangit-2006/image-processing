@@ -1,6 +1,5 @@
-# ============================================================
+
 # TEMPLATE MATCHING - OBJECT DETECTION
-# ============================================================
 
 import cv2
 import numpy as np
@@ -71,19 +70,13 @@ def detect_object(template_path, input_image_path):
     cv2.destroyAllWindows()
 
 
-# ============================================================
 # PROVIDE IMAGE PATHS
-# ============================================================
-
 template_path = r"C:\Users\LAB-112\Downloads\i1.jpg"
 
 input_image_path = r"C:\Users\LAB-112\Downloads\Animals.jpg"
 
 
-# ============================================================
 # CALL THE FUNCTION
-# ============================================================
-
 detect_object(
     template_path,
     input_image_path
