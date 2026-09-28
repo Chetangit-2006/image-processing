@@ -6,15 +6,11 @@ INPUT_IMAGE = "staircase_450x450.png"
 OUTPUT_IMAGE = "FAST_Final_Output.jpg"
 
 
-
-
 # Lower value = more corners
 FAST_THRESHOLD = 5
 
 # FAST-9 detects more corners
 FAST_TYPE = cv2.FAST_FEATURE_DETECTOR_TYPE_9_16
-
-
 
 
 # Distance between red dots
@@ -29,9 +25,8 @@ DOT_RADIUS = 2
 DOT_COLOR = (0, 0, 180)
 
 
-print("==============================================")
-print("       FAST CORNER DETECTION PROJECT")
-print("==============================================")
+print(" FAST CORNER DETECTION PROJECT  ")
+
 
 print("\nLoading image...")
 
@@ -276,9 +271,8 @@ cv2.imwrite(
 )
 
 
-print("\n==============================================")
-print("              FINAL RESULTS")
-print("==============================================")
+print("  FINAL RESULTS")
+
 
 print(
     "FAST threshold:",
@@ -319,7 +313,7 @@ print(
     OUTPUT_IMAGE
 )
 
-print("==============================================")
+
 
 
 cv2.imshow(
